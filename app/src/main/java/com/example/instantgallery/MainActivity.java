@@ -242,35 +242,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
                 //return true;
-            case R.id.copy:
-                copyImage();
-                break;
-            /*case R.id.wallpaper:
-                setAsWallpaper(View );*/
-
         }
         return true;
     }
-    //Ssu-Ting's
-
-    public void copyImage()
-    {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        Intent appIntent = new Intent();
-        ClipData clip = ClipData.newIntent("Intent",appIntent);
-    }
-    public void setAsWallpaper(View view) {
-        try {
-            MainActivity.this.clearWallpaper();
-            ImageView iv = (ImageView) view;
-            iv.setDrawingCacheEnabled(true);
-            Bitmap bmp = Bitmap.createBitmap(iv.getDrawingCache());
-            MainActivity.this.setWallpaper(bmp);
-            iv.setDrawingCacheEnabled(false);
-            Toast.makeText(getApplicationContext(), "successful！", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "unsuccessful！", Toast.LENGTH_LONG).show();
-        }
-    }
-
 }
