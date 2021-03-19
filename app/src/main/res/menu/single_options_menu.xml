@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nightMode"
+        android:title="Night Mode On/Off" />
+    <item
+        android:id="@+id/copy"
+        android:title="copy" />
+    <item
+        android:id="@+id/wallpaper"
+        android:title="set as wallpaper" />
+</menu>

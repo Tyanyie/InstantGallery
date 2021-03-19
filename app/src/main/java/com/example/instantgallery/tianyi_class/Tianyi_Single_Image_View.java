@@ -17,8 +17,10 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.instantgallery.MainActivity;
 import com.example.instantgallery.R;
@@ -35,7 +37,6 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     public static final String TAG = "Too";
     Tianyi_ImageView clickedImage;
     Intent intent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -51,5 +52,50 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         Uri uri = Uri.parse(imageId);
         Log.v(TAG, "URI is :" + uri);
         clickedImage.setImageURI(uri);
+    }
+
+    //Ssu-Ting's
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.single_options_menu, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.copy:
+                copyImage();
+                break;
+            case R.id.wallpaper:
+                setAsWallpaper(clickedImage);
+            break;
+        }
+        return true;
+    }
+    public void copyImage()
+    {
+        try {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            Intent appIntent = new Intent();
+            ClipData clip = ClipData.newIntent("Intent",appIntent);
+            Toast.makeText(getApplicationContext(), "Copy image successfully！", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Copy image unsuccessfully！", Toast.LENGTH_LONG).show();
+        }
+
+    }
+    public void setAsWallpaper(View view) {
+        try {
+            Tianyi_Single_Image_View.this.clearWallpaper();
+            ImageView iv = (ImageView) view;
+            iv.setDrawingCacheEnabled(true);
+            Bitmap bmp = Bitmap.createBitmap(iv.getDrawingCache());
+            Tianyi_Single_Image_View.this.setWallpaper(bmp);
+            iv.setDrawingCacheEnabled(false);
+            Toast.makeText(getApplicationContext(), "Wallpaper set successfully！", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Wallpaper set unsuccessfully！", Toast.LENGTH_LONG).show();
+        }
     }
 }

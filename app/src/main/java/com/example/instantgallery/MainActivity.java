@@ -12,6 +12,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.instantgallery.Bruce_class.CreatePasswordActivity;
 import com.example.instantgallery.Bruce_class.LoadingActivity;
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
+
     /*   ---------------------------------------------------------------------------- */
     //Bruce's variables
     private final boolean login = false;
@@ -147,10 +150,6 @@ public class MainActivity extends AppCompatActivity
             myAdapter = new Tianyi_Adapter(this, photoList);
             gridView.setAdapter(myAdapter);
         }
-
-
-
-
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -244,12 +243,34 @@ public class MainActivity extends AppCompatActivity
                 break;
                 //return true;
             case R.id.copy:
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                Intent appIntent = new Intent();
-                ClipData clip = ClipData.newIntent("Intent",appIntent);
+                copyImage();
+                break;
+            /*case R.id.wallpaper:
+                setAsWallpaper(View );*/
 
         }
         return true;
     }
     //Ssu-Ting's
+
+    public void copyImage()
+    {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        Intent appIntent = new Intent();
+        ClipData clip = ClipData.newIntent("Intent",appIntent);
+    }
+    public void setAsWallpaper(View view) {
+        try {
+            MainActivity.this.clearWallpaper();
+            ImageView iv = (ImageView) view;
+            iv.setDrawingCacheEnabled(true);
+            Bitmap bmp = Bitmap.createBitmap(iv.getDrawingCache());
+            MainActivity.this.setWallpaper(bmp);
+            iv.setDrawingCacheEnabled(false);
+            Toast.makeText(getApplicationContext(), "successful！", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "unsuccessful！", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
