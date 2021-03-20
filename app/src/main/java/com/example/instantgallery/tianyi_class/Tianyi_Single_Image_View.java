@@ -2,35 +2,25 @@ package com.example.instantgallery.tianyi_class;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.instantgallery.MainActivity;
 import com.example.instantgallery.R;
+import com.example.instantgallery.TagActivity;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 
 public class Tianyi_Single_Image_View extends AppCompatActivity
 {
@@ -69,7 +59,10 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
                 break;
             case R.id.wallpaper:
                 setAsWallpaper(clickedImage);
-            break;
+                break;
+            case R.id.tag:
+                addaTag();
+                break;
         }
         return true;
     }
@@ -85,7 +78,8 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         }
 
     }
-    public void setAsWallpaper(View view) {
+    public void setAsWallpaper(View view)
+    {
         try {
             Tianyi_Single_Image_View.this.clearWallpaper();
             ImageView iv = (ImageView) view;
@@ -98,4 +92,25 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Wallpaper set unsuccessfully！", Toast.LENGTH_LONG).show();
         }
     }
+    public void addaTag()
+    {
+        ImageView view = (ImageView)findViewById(R.id.single_image);
+        Bitmap bitmap = setimage(view);
+        Intent intent = new Intent(Tianyi_Single_Image_View.this, TagActivity.class);
+        intent.putExtra("image", bitmap);
+        startActivity(intent);
+    }
+    private Bitmap setimage(ImageView view1)
+    {
+        Bitmap image = ((BitmapDrawable)view1.getDrawable()).getBitmap();
+        Bitmap bitmap1 = Bitmap.createBitmap(image);
+        return bitmap1;
+    }
+    private byte[] Bitmap2Bytes(Bitmap bm)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
 }

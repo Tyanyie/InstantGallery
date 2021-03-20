@@ -13,14 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Instantgallery">
-
+        <activity android:name=".TagActivity"></activity>
         <activity android:name=".tianyi_class.Tianyi_Single_Image_View" />
         <activity android:name=".Bruce_class.EnterPasswordActivity" />
         <activity android:name=".Bruce_class.CreatePasswordActivity" />
-        <activity android:name=".Bruce_class.LoadingActivity"/>
-
+        <activity android:name=".Bruce_class.LoadingActivity" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,17 +27,18 @@
         </activity>
 
         <provider
-            android:authorities="com.example.android.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
-
-
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
