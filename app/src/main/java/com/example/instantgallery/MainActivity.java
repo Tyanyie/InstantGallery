@@ -36,6 +36,7 @@ import com.example.instantgallery.tianyi_class.Tianyi_Single_Image_View;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
+        //Bruce's part
         //check if user has logged in
         /*
         login = getIntent().getBooleanExtra("login", false);

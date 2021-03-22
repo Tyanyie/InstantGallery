@@ -14,4 +14,7 @@
     <item
         android:id="@+id/tag"
         android:title="Add a Tag" />
+    <item
+        android:id="@+id/hide"
+        android:title="Hide photo" />
 </menu>
