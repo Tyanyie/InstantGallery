@@ -114,9 +114,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /*   ---------------------------------------------------------------------------- */
-    //Bruce's variables
-    private final boolean login = false;
-
     //everyone shared area
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
