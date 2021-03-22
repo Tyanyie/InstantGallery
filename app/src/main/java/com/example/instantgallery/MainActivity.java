@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
     String currentPhotoPath;
     private final List<String> photoList = new ArrayList<>();
 
-
+    //Robert's
     public void capturePhoto()
     {
         Intent capPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //Robert's
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     public static final String TAG = "Too";
     Tianyi_ImageView clickedImage;
     Intent intent;
+
+    public boolean nightmodeSingle = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -60,6 +64,20 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     {
         switch (item.getItemId())
         {
+            case R.id.nightMode:
+                //Robert's part start
+                if (!nightmodeSingle)
+                {
+                    setBackgroundColor("#2c2c2c");
+                    nightmodeSingle = true;
+                }
+                else
+                {
+                    setBackgroundColor("#FFFFFF");
+                    nightmodeSingle = false;
+                }
+                break;
+                //Robert's part end
             case R.id.copy:
                 copyImage();
                 break;
@@ -142,6 +160,9 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         finish();
     }
 
-
-
+    //Robert's part
+    public void setBackgroundColor(String color) {
+        View singleView = this.getWindow().getDecorView();
+        singleView.setBackgroundColor(Color.parseColor(color));
+    }
 }
