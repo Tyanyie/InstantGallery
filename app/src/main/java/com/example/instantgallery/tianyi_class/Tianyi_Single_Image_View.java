@@ -9,10 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +31,10 @@ import com.example.instantgallery.TagActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 
 public class Tianyi_Single_Image_View extends AppCompatActivity
 {
@@ -40,10 +47,8 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tianyi_single_photo_view);
-
 
         clickedImage = findViewById(R.id.single_image);
         intent = getIntent();
@@ -66,16 +71,7 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         {
             case R.id.nightMode:
                 //Robert's part start
-                if (!nightmodeSingle)
-                {
-                    setBackgroundColor("#2c2c2c");
-                    nightmodeSingle = true;
-                }
-                else
-                {
-                    setBackgroundColor("#FFFFFF");
-                    nightmodeSingle = false;
-                }
+                nightModeSingle();
                 break;
                 //Robert's part end
             case R.id.copy:
@@ -164,5 +160,19 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     public void setBackgroundColor(String color) {
         View singleView = this.getWindow().getDecorView();
         singleView.setBackgroundColor(Color.parseColor(color));
+    }
+
+    //Robert's part
+    public void nightModeSingle() {
+        if (!nightmodeSingle)
+        {
+            setBackgroundColor("#2c2c2c");
+            nightmodeSingle = true;
+        }
+        else
+        {
+            setBackgroundColor("#FFFFFF");
+            nightmodeSingle = false;
+        }
     }
 }

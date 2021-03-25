@@ -61,11 +61,12 @@ public class MainActivity extends AppCompatActivity
 
     /*   ---------------------------------------------------------------------------- */
     //Robert's variables
-    public boolean nightmode = false;
+
     private ImageView imageView;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     String currentPhotoPath;
     private final List<String> photoList = new ArrayList<>();
+    public boolean nightmode = false;
 
     //Robert's
     public void capturePhoto()
@@ -228,21 +229,27 @@ public class MainActivity extends AppCompatActivity
                 capturePhoto();
                 break;
             case R.id.nightMode:
-                if (!nightmode)
-                {
-                    gridView.setBackgroundColor(Color.argb
-                            (255, 55, 55, 55));
-                    nightmode = true;
-                }
-                else
-                {
-                    gridView.setBackgroundColor(Color.argb
-                            (255, 255, 255, 255));
-                    nightmode = false;
-                }
+                nightMode();
                 break;
-                //return true;
+            case R.id.sharePictures:
+                break;
         }
         return true;
+    }
+
+    //Robert's
+    public void nightMode() {
+        if (!nightmode)
+        {
+            gridView.setBackgroundColor(Color.argb
+                    (255, 55, 55, 55));
+            nightmode = true;
+        }
+        else
+        {
+            gridView.setBackgroundColor(Color.argb
+                    (255, 255, 255, 255));
+            nightmode = false;
+        }
     }
 }
