@@ -232,6 +232,7 @@ public class MainActivity extends AppCompatActivity
                 nightMode();
                 break;
             case R.id.sharePictures:
+                sharePhotos();
                 break;
         }
         return true;
@@ -251,5 +252,12 @@ public class MainActivity extends AppCompatActivity
                     (255, 255, 255, 255));
             nightmode = false;
         }
+    }
+
+    //Robert's
+    public void sharePhotos() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        startActivity(Intent.createChooser(shareIntent, "Choose an app to use:"));
     }
 }
