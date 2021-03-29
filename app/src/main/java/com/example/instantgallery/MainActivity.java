@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.instantgallery.Bruce_class.CreatePasswordActivity;
@@ -242,14 +243,12 @@ public class MainActivity extends AppCompatActivity
     public void nightMode() {
         if (!nightmode)
         {
-            gridView.setBackgroundColor(Color.argb
-                    (255, 55, 55, 55));
+            setBackgroundColor("#2c2c2c");
             nightmode = true;
         }
         else
         {
-            gridView.setBackgroundColor(Color.argb
-                    (255, 255, 255, 255));
+            setBackgroundColor("#FFFFFF");
             nightmode = false;
         }
     }
@@ -259,5 +258,11 @@ public class MainActivity extends AppCompatActivity
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
         startActivity(Intent.createChooser(shareIntent, "Choose an app to use:"));
+    }
+
+    //Robert's
+    public void setBackgroundColor(String color) {
+        LinearLayout li=(LinearLayout)findViewById(R.id.linLayout);
+        li.setBackgroundColor(Color.parseColor(color));
     }
 }
