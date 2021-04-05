@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.instantgallery.tianyi_class.Tianyi_ImageView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class TagActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -93,69 +95,66 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         switch (view.getId()){
 
             case R.id.tag_animal:
-
-                //checking(currentTag);
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#animal");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_family:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#family");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_favorite:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#favorite");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_food:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#food");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_friend:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#friend");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_human:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#human");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_landscape:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#landscape");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_other:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#other");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
             case R.id.tag_plant:
-                textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
+                checking(currentTag, "#plant");
+                //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
-
-
         }
     }
-    public void checking(String currentTag)
+    public void checking(String currentTag, String add)
     {
+        String display = "";
+        boolean isExisted = false;
         String [] Tags = currentTag.split(" ");
-        ArrayList<String> newTags = new ArrayList<String>();
-
-
+        List<String> originalTags = new ArrayList<String>();
         for (int i=0; i<Tags.length; i++)
-        {
-            /*if (Tags[i].equals("animal"))
-            {
-                //textView.setText(currentTag + "#" + "test" + " ");
-            } */
-            /*if (!Tags[i].equals("animal"))
-            {
-                //textView.setText(currentTag + "#" + "animal" + " ");
-                newTags.add(Tags[i]);
-            }*/
-            String s = Tags[i];
-            newTags.add(s);
-            //display = display + "#" + Tags[i] + " ";
-            //display = display + Tags[i] + "test ";
-        }
+            originalTags.add(Tags[i]);
 
-        String newOutput = newTags.get(0);
-        for (int j=1; j<newTags.size(); j++)
-        {
-            newOutput = newOutput + newTags.get(j) + " ";
-        }
+        HashSet<String> previous = new HashSet<String>(originalTags);
+        previous.add(add);
 
-        //String newOutput = newTags.get(1) + " " + "#" + newTags.get(2);
-        textView.setText(newOutput);
+        for(int i=0; i<Tags.length; i++){
+            if (Tags[i].equals(add))
+                isExisted = true;
+        }
+        if (isExisted)
+            previous.remove(add);
+
+        for (String i : previous)
+            display = display + i + " ";
+
+        textView.setText(display);
     }
 }
 
