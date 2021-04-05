@@ -47,13 +47,13 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_tag);
 
-        tagforImage = findViewById(R.id.tagforImage);
-        intent = getIntent();
-        String imageId = intent.getStringExtra("image");
+        //tagforImage = findViewById(R.id.tagforImage);
+        Intent intent = getIntent();
+        //String imageId = intent.getStringExtra("image");
 
-        Uri uri = Uri.parse(imageId);
-        Log.v(TAG_3, "URI is :" + uri);
-        tagforImage.setImageURI(uri);
+        //Uri uri = Uri.parse(imageId);
+        //Log.v(TAG_3, "URI is :" + uri);
+        //tagforImage.setImageURI(uri);
 
         animal_tag = findViewById(R.id.tag_animal);
         landscape_tag = findViewById(R.id.tag_landscape);
@@ -64,7 +64,6 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         friend_tag = findViewById(R.id.tag_friend);
         favorite_tag = findViewById(R.id.tag_favorite);
         other_tag = findViewById(R.id.tag_other);
-
 
         //output
         textView = findViewById(R.id.output);

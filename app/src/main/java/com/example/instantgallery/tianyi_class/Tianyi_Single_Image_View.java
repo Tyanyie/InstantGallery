@@ -118,9 +118,9 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     public void addaTag()
     {
         ImageView view = (ImageView)findViewById(R.id.single_image);
-        Bitmap bitmap = setimage(view);
-        Intent intent = new Intent(Tianyi_Single_Image_View.this, TagActivity.class);
-        intent.putExtra("image", bitmap);
+        //Bitmap bitmap = setimage(view);
+        Intent intent = new Intent(this, TagActivity.class);
+        //intent.putExtra("image", bitmap);
         startActivity(intent);
     }
     private Bitmap setimage(ImageView view1)
