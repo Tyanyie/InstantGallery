@@ -25,6 +25,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     ImageView tagforImage;
     Intent intent;
     public static final String TAG_3 = "030";
+
     //Operator
     private Button animal_tag;
     private Button landscape_tag;
@@ -35,6 +36,8 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     private Button friend_tag;
     private Button favorite_tag;
     private Button other_tag;
+    private Button save;
+    private Button cancel;
 
     boolean isEmpty;
 
@@ -64,6 +67,8 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         friend_tag = findViewById(R.id.tag_friend);
         favorite_tag = findViewById(R.id.tag_favorite);
         other_tag = findViewById(R.id.tag_other);
+        cancel = findViewById(R.id.but_cancel);
+        save = findViewById(R.id.but_save);
 
         //output
         textView = findViewById(R.id.output);
