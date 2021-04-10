@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -64,49 +66,10 @@ public class MainActivity extends AppCompatActivity
     //Robert's variables
 
     private ImageView imageView;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     String currentPhotoPath;
     private final List<String> photoList = new ArrayList<>();
     public boolean nightmode = false;
-
-    //Robert's
-    public void capturePhoto()
-    {
-        Intent capPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        if (capPhoto.resolveActivity(getPackageManager()) != null)
-        {
-            File photoFile = null;
-            try
-            {
-                photoFile = createImageFile();
-            }
-            catch (IOException ex)
-            {
-
-            }
-
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                capPhoto.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(capPhoto, REQUEST_IMAGE_CAPTURE);
-            }
-        }
-    }
-
-    //Robert's
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageName = "JPEG_" + timeStamp + "_";
-        File sDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageName, ".jpg", sDir);
-
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
 
     //Robert's
     @Override
@@ -219,7 +182,6 @@ public class MainActivity extends AppCompatActivity
     }
 */
 
-
     //Robert's
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -237,6 +199,45 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         return true;
+    }
+
+    //Robert's
+    public void capturePhoto()
+    {
+        Intent capPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (capPhoto.resolveActivity(getPackageManager()) != null)
+        {
+            File photoFile = null;
+            try
+            {
+                photoFile = createImageFile();
+            }
+            catch (IOException ex)
+            {
+
+            }
+
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                capPhoto.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(capPhoto, 100);
+            }
+        }
+    }
+
+    //Robert's
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageName = "JPEG_" + timeStamp + "_";
+        File sDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageName, ".jpg", sDir);
+
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     //Robert's
