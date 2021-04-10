@@ -15,6 +15,7 @@
         android:id="@+id/tag"
         android:title="Add a Tag" />
     <item
-        android:id="@+id/hide"
-        android:title="Hide photo" />
+        android:id="@+id/info"
+        android:title="Info" />
+
 </menu>

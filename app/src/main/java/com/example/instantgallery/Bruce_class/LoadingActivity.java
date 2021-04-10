@@ -1,12 +1,23 @@
 package com.example.instantgallery.Bruce_class;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,12 +32,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoadingActivity extends AppCompatActivity {
 
 
+    private String[] permissions;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +72,6 @@ public class LoadingActivity extends AppCompatActivity {
             inputChannel.transferTo(0, inputChannel.size(), outputChannel);
             outputChannel.close();
             inputChannel.close();
-
         }
 
         catch (FileNotFoundException e)
@@ -70,8 +83,46 @@ public class LoadingActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        System.out.println(from.getAbsolutePath());
+        //deleteImage(from);
 
         startActivity(intent);
         finish();
     }
+
+    private void deleteImage(File file)
+    {
+        // Set up the projection )
+        String[] projection = {MediaStore.Images.Media._ID};
+
+        // Match on the file path
+        String selection = MediaStore.Images.Media.DATA + " = ?";
+        String[] selectionArgs = new String[]{file.getAbsolutePath()};
+
+        // Query for the ID of the media matching the file path
+        Uri queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        ContentResolver contentResolver = getContentResolver();
+        Cursor c = contentResolver.query(queryUri, projection, selection, selectionArgs, null);
+        if (c.moveToFirst()) {
+            // Deleting the item via the content provider will also remove the file
+            long id = c.getLong(c.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
+            Uri deleteUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+            contentResolver.delete(deleteUri, null, null);
+        } else {
+            // File not found
+        }
+        c.close();
+
+    }
+
+
+
+
+
+
+
 }
+
+
+
+
