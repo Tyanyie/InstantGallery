@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.instantgallery.R.layout.activity_loading;
 import static com.example.instantgallery.R.layout.activity_main;
 
 

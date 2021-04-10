@@ -1,17 +1,20 @@
 package com.example.instantgallery.tianyi_class;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,7 +60,10 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         Uri uri = Uri.parse(imageId);
         Log.v(TAG, "URI is :" + uri);
         clickedImage.setImageURI(uri);
+
     }
+
+
 
     //Ssu-Ting's
     public boolean onCreateOptionsMenu(Menu menu)
@@ -83,8 +89,8 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
             case R.id.tag:
                 addaTag();
                 break;
-            case R.id.hide:
-                hidePhoto();
+            case R.id.info:
+                info();
                 break;
         }
         return true;
@@ -142,6 +148,7 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     {
 
         String path = intent.getStringExtra("image");
+
         String fileName = path.substring(29);
         String filePath = path.substring(0,29);
 
@@ -155,6 +162,36 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         startActivity(intent);
         finish();
     }
+
+
+    public void info()
+    {
+        String path = intent.getStringExtra("image");
+        try
+        {
+            ExifInterface exifInterface = new ExifInterface(path);
+            String exif = "";
+            exif += "Date: " + exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+            exif += "\nSize: " + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "X" + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH);
+            exif += "\nPath: " + intent.getStringExtra("image");
+
+
+
+            new AlertDialog.Builder(Tianyi_Single_Image_View.this).setTitle("Details").setMessage(exif).setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    closeContextMenu();
+                }
+            })
+            .show();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
 
     //Robert's part
     public void setBackgroundColor(String color) {
