@@ -140,24 +140,12 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
     public void addaTag()
     {
         ImageView view = (ImageView)findViewById(R.id.single_image);
-        //Bitmap bitmap = setimage(view);
+        String id = "file://"+intent.getStringExtra("image");
+        Uri uri = Uri.parse(id);
         Intent intent = new Intent(this, TagActivity.class);
-        //intent.putExtra("image", bitmap);
+        intent.putExtra("image", uri.toString());
         startActivity(intent);
     }
-    private Bitmap setimage(ImageView view1)
-    {
-        Bitmap image = ((BitmapDrawable)view1.getDrawable()).getBitmap();
-        Bitmap bitmap1 = Bitmap.createBitmap(image);
-        return bitmap1;
-    }
-    private byte[] Bitmap2Bytes(Bitmap bm)
-    {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        return baos.toByteArray();
-    }
-
 
     //Bruce's part
     private void crop()

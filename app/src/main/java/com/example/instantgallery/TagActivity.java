@@ -22,7 +22,7 @@ import java.util.List;
 public class TagActivity extends AppCompatActivity implements View.OnClickListener
 {
 
-    ImageView tagforImage;
+    //ImageView tagforImage;
     Intent intent;
     public static final String TAG_3 = "030";
 
@@ -50,13 +50,10 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_tag);
 
-        //tagforImage = findViewById(R.id.tagforImage);
+        ImageView Image = (ImageView)findViewById(R.id.tagforImage);
         Intent intent = getIntent();
-        //String imageId = intent.getStringExtra("image");
-
-        //Uri uri = Uri.parse(imageId);
-        //Log.v(TAG_3, "URI is :" + uri);
-        //tagforImage.setImageURI(uri);
+        String imageId = intent.getStringExtra("image");
+        Image.setImageURI(Uri.parse(imageId));
 
         animal_tag = findViewById(R.id.tag_animal);
         landscape_tag = findViewById(R.id.tag_landscape);
