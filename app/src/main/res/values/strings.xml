@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Instant Gallery</string>
+    <string name="title_current_tags">Current Tags:</string>
+    <string name="tag_animal">animal</string>
+    <string name="tag_human">human</string>
+    <string name="tag_family">family</string>
+    <string name="tag_friend">friend</string>
+    <string name="tag_favorite">favorite</string>
+    <string name="tag_save">save</string>
+    <string name="tag_cancel">cancel</string>
+    <string name="tag_other">other</string>
+    <string name="tag_landscape">landscape</string>
+    <string name="tag_food">food</string>
+    <string name="tag_plant">plant</string>
+    <string name="todo">TODO</string>
 </resources>
