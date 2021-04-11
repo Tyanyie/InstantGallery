@@ -31,8 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.instantgallery.Bruce_class.CreatePasswordActivity;
-import com.example.instantgallery.Bruce_class.LoadingActivity;
+
 import com.example.instantgallery.tianyi_class.TianyiUtils;
 import com.example.instantgallery.tianyi_class.Tianyi_Adapter;
 import com.example.instantgallery.tianyi_class.Tianyi_Single_Image_View;
@@ -46,12 +45,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.instantgallery.R.layout.activity_loading;
 import static com.example.instantgallery.R.layout.activity_main;
 
 
 public class MainActivity extends AppCompatActivity
 {
+
+
     //everyone shared variables
     public static final String TAG = "Tianyi_Debug_Info";
     public static final String TAG_1 = "Robert_Debug_Info";
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity
         /*----------------------------------------------------------------------*/
 
     }
+
 
 
     public List<String> getPhotoList()

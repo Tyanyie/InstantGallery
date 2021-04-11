@@ -15,6 +15,9 @@
         android:id="@+id/tag"
         android:title="Add a Tag" />
     <item
+        android:id="@+id/crop"
+        android:title="Edit" />
+    <item
         android:id="@+id/info"
         android:title="Info" />
 

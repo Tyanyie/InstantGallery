@@ -1,5 +1,6 @@
 package com.example.instantgallery.tianyi_class;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,16 +10,19 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Picture;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -27,20 +31,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.instantgallery.Bruce_class.LoadingActivity;
 import com.example.instantgallery.MainActivity;
 import com.example.instantgallery.R;
 import com.example.instantgallery.TagActivity;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
+import java.nio.channels.FileChannel;
 
 public class Tianyi_Single_Image_View extends AppCompatActivity
 {
+
+    int fileId;
     public static final String TAG = "Too";
     Tianyi_ImageView clickedImage;
     Intent intent;
@@ -60,6 +71,7 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         Uri uri = Uri.parse(imageId);
         Log.v(TAG, "URI is :" + uri);
         clickedImage.setImageURI(uri);
+
 
     }
 
@@ -92,6 +104,10 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
             case R.id.info:
                 info();
                 break;
+            case R.id.crop:
+                crop();
+                break;
+
         }
         return true;
     }
@@ -144,24 +160,74 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
 
 
     //Bruce's part
-    public void hidePhoto()
+    private void crop()
     {
-
-        String path = intent.getStringExtra("image");
-
-        String fileName = path.substring(29);
-        String filePath = path.substring(0,29);
-
-
-
-        Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
-
-        intent.putExtra("fName", fileName);
-        intent.putExtra("fPath", filePath);
-
-        startActivity(intent);
-        finish();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        String id = "file://"+intent.getStringExtra("image");
+        Uri uri = Uri.parse(id);
+        CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true).start(this);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(requestCode == RESULT_OK);
+            clickedImage.setImageURI(result.getUri());
+            //System.out.println(result.getUri());
+
+
+
+            String pictureDir = intent.getStringExtra("image").substring(0,29);
+            String newPicDir = pictureDir + "cropped/";
+            System.out.println(newPicDir);
+            File dir = new File(pictureDir + "cropped");
+            System.out.println(dir);
+            if(dir.mkdirs())
+                System.out.println("directory created");
+            else
+                System.out.println("directory not created");
+
+
+
+            SharedPreferences id = getSharedPreferences("PREFS", 0);
+            SharedPreferences.Editor editor = id.edit();
+            fileId = id.getInt("fileId", 0);
+
+            //copy file
+            File src = new File(result.getUri().getPath());
+            File dst = new File(newPicDir + fileId + ".jpg");
+            editor.putInt("fileId", fileId + 1);
+            editor.apply();
+            FileChannel outputChannel = null;
+            FileChannel inputChannel = null;
+
+            try {
+                outputChannel = new FileOutputStream(dst).getChannel();
+                inputChannel = new FileInputStream(src).getChannel();
+                inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+                outputChannel.close();
+                inputChannel.close();
+
+
+            } catch (FileNotFoundException e ) {
+                System.out.println("FileNotFoundException");
+            } catch (IOException e) {
+                System.out.println("IOException");
+            }
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+
+
+        }
+    }
+
+
 
 
     public void info()
