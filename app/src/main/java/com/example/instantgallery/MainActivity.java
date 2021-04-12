@@ -127,10 +127,12 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("image", myAdapter.getPhotoPathById(position));
                 startActivity(intent);
                 Log.i(TAG, "In MainActivity onItemClick()");
+
             }
         });
 
         /*----------------------------------------------------------------------*/
+
 
     }
 

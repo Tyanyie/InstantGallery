@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.instantgallery.tianyi_class.Tianyi_ImageView;
+import com.example.instantgallery.tianyi_class.Tianyi_Single_Image_View;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     Intent intent;
     public static final String TAG_3 = "030";
 
+
     //Operator
     private Button animal_tag;
     private Button landscape_tag;
@@ -36,7 +38,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     private Button friend_tag;
     private Button favorite_tag;
     private Button other_tag;
-    private Button save;
+    //private Button save;
     private Button cancel;
 
     boolean isEmpty;
@@ -50,7 +52,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_tag);
 
-        ImageView Image = (ImageView)findViewById(R.id.tagforImage);
+        ImageView Image = findViewById(R.id.tagforImage);
         Intent intent = getIntent();
         String imageId = intent.getStringExtra("image");
         Image.setImageURI(Uri.parse(imageId));
@@ -65,7 +67,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         favorite_tag = findViewById(R.id.tag_favorite);
         other_tag = findViewById(R.id.tag_other);
         cancel = findViewById(R.id.but_cancel);
-        save = findViewById(R.id.but_save);
+        //save = findViewById(R.id.but_save);
 
         //output
         textView = findViewById(R.id.output);
@@ -79,17 +81,30 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         friend_tag.setOnClickListener(this);
         favorite_tag.setOnClickListener(this);
         other_tag.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+        //save.setOnClickListener(this);
+
     }
 
     @SuppressLint("NewApi")
     public void onClick(View view) {
 
+        Intent intent = getIntent();
+        String imageId = intent.getStringExtra("image");
+        String currentTag;
+        ArrayList<String> newTags = new ArrayList<String>();
+        if(newTags.contains(imageId))
+        {
+            int i = newTags.indexOf(imageId) + 1;
+            textView.setText(newTags.get(i));
+        }
         //display
-        String currentTag = textView.getText().toString();
+        currentTag = textView.getText().toString();
         String []Tags;
         Tags = currentTag.split(" ");
-        ArrayList<String> newTags = new ArrayList<String>();
+
         String display = "";
+
 
         boolean isExisted = false;
 
@@ -131,6 +146,13 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
                 checking(currentTag, "#plant");
                 //textView.setText(currentTag + "#" + ((Button)view).getText() + " ");
                 break;
+            case R.id.but_cancel:
+                textView.setText(" ");
+                break;
+            /*case R.id.but_save:
+                newTags.add(imageId);
+                newTags.add(textView.getText().toString());
+                break;*/
         }
     }
     public void checking(String currentTag, String add)

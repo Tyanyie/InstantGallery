@@ -180,21 +180,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline.833" />
 
     <Button
-        android:id="@+id/but_save"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/tag_save"
-        android:textAllCaps="false"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:backgroundTint="	#4F4F4F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline.75"
-        app:layout_constraintTop_toTopOf="@+id/guideline.916" />
-
-    <Button
         android:id="@+id/but_cancel"
         android:layout_width="80dp"
         android:layout_height="35dp"
@@ -206,8 +191,8 @@
         android:textStyle="bold"
         app:backgroundTint="#D0D0D0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline.75"
-        app:layout_constraintStart_toStartOf="@+id/vertical_guideline.50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline.75"
         app:layout_constraintTop_toTopOf="@+id/guideline.916" />
 
     <Button
