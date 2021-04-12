@@ -171,9 +171,7 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
 
             String pictureDir = intent.getStringExtra("image").substring(0,29);
             String newPicDir = pictureDir + "cropped/";
-            System.out.println(newPicDir);
             File dir = new File(pictureDir + "cropped");
-            System.out.println(dir);
             if(dir.mkdirs())
                 System.out.println("directory created");
             else
@@ -187,7 +185,7 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
 
             //copy file
             File src = new File(result.getUri().getPath());
-            File dst = new File(newPicDir + fileId + ".jpg");
+            File dst = new File(newPicDir + "croppedIMG_" + fileId + ".jpg");
             editor.putInt("fileId", fileId + 1);
             editor.apply();
             FileChannel outputChannel = null;
@@ -225,8 +223,11 @@ public class Tianyi_Single_Image_View extends AppCompatActivity
         {
             ExifInterface exifInterface = new ExifInterface(path);
             String exif = "";
-            exif += "Date: " + exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
-            exif += "\nSize: " + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "X" + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH);
+            if(exifInterface.getAttribute(ExifInterface.TAG_DATETIME) == null)
+                exif += "Date: Unknown";
+            else
+                exif += "Date: " + exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+            exif += "\nDimension: " + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + " x " + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH);
             exif += "\nPath: " + intent.getStringExtra("image");
 
 
